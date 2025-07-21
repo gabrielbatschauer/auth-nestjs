@@ -14,8 +14,6 @@ model User {
   email         String    @unique @db.VarChar(100)
   password      String    @db.VarChar(255)
   tipoUsuario   TipoUsuario @default(USER) @map("tipo_usuario")
-  telefone      String?   @db.VarChar(20)
-  documento     String?   @db.VarChar(20)
   refreshToken  String?   @db.VarChar(400)
   ativo         Boolean   @default(true)
   createdAt     DateTime  @default(now()) @map("created_at")
