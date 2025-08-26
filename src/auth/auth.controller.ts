@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   Request,
   UnauthorizedException,
   UseGuards,
@@ -13,6 +15,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthRequest } from './model/AuthRequest';
 import { IsPublic } from './decorators/is-public.decorator';
 import { ApiBody } from '@nestjs/swagger';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller()
 export class AuthController {
@@ -60,5 +63,14 @@ export class AuthController {
       throw new UnauthorizedException('Refresh token é obrigatório');
     }
     return this.authService.refreshToken(refreshDto.refresh_token);
+  }
+
+  @Get('auth/validate')
+  @UseGuards(JwtAuthGuard)
+  validateToken(@Req() req: AuthRequest) {
+    return {
+      valid: true,
+      user: req.user,
+    };
   }
 }
