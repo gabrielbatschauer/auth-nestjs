@@ -28,6 +28,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
+  app.enableCors({
+    // origin: 'http://localhost:5173', // URL de teste local
+    origin: '*', // URL de teste
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Authorization', 'Content-Type', 'Accept'],
+    credentials: true,
+  });
+
   app.use(express.json());
 
   await app.listen(process.env.PORT ?? 3000);
