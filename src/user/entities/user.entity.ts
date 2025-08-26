@@ -4,5 +4,5 @@ export class User {
   password!: string;
   nome!: string;
   refreshToken?: string;
-  tipoUsuario!: string[];
+  tipoUsuario!: string;
 }
